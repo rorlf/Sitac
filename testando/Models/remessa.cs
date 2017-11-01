@@ -5,7 +5,8 @@ using System.Web;
 
 namespace testando.Models
 {
-    public class uploadprotocolo
+    public class Remessa
     {
+        public IEnumerable<HttpPostedFileBase> Arquivos { get; set; }
     }
 }

@@ -1,0 +1,17 @@
+ NpgsqlConnection objcon = new NpgsqlConnection("server=189.113.3.203;port=5437;userid=rodrigo_leite;password=Creaba402*;database=creaba_corp_db");
+
+string queryString = "SELECT nome, usuario, senha, cpf, telefone, email, datacadastro, datamodificacao, firsttime, matricula, apelido,id FROM public.tb_usuarios;";
+
+
+
+
+
+
+
+            NpgsqlCommand comand = new NpgsqlCommand(queryString, objcon);
+
+            NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(comand);
+
+            DataTable customers = new DataTable();
+            adapter.Fill(customers);
+            dataGridView1.DataSource = customers;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,7 +18,7 @@ namespace testando.Controllers
         // GET: protocoloes
         public ActionResult Index()
         {
-            return View(db.protocoloes.ToList());
+            return View();
         }
 
         // GET: protocoloes/Details/5
@@ -41,18 +42,56 @@ namespace testando.Controllers
             return View();
         }
 
+      
+
         // POST: protocoloes/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,ano,data_cadastro,data_prazo,protocolo_status_id")] protocolo protocolo)
+        public ActionResult Create([Bind(Include = "id,ano,data_cadastro,data_prazo,protocolo_status_id")] protocolo protocolo, Remessa arq)
         {
-            if (ModelState.IsValid)
+            
+
+                    if (ModelState.IsValid)
             {
+                
                 db.protocoloes.Add(protocolo);
+                
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    string nomeArquivo = "";
+                    string arquivoEnviados = "";
+                    foreach (var arquivo in arq.Arquivos)
+                    {
+                        string[] extensaopermitida = new string[]{ ".pdf", ".doc",".txt" };
+                        string extensao = Path.GetExtension(arquivo.FileName);
+                        if (extensaopermitida.Contains(extensao)) { 
+                        if (arquivo.ContentLength > 0)
+                        {
+
+
+                            var pasta = Path.Combine(Server.MapPath(@"~\App_Data\uploads"), protocolo.id.ToString());
+                            System.IO.Directory.CreateDirectory(pasta);
+
+                            nomeArquivo = Path.GetFileName(arquivo.FileName);
+
+                            var caminho = Path.Combine(Server.MapPath(@"~\App_Data\uploads\" + protocolo.id.ToString()), nomeArquivo);
+                            arquivo.SaveAs(caminho);
+                        }
+                        arquivoEnviados = arquivoEnviados + " , " + nomeArquivo;
+                    }
+                       
+                }
+
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Mensagem = "Erro : " + ex.Message;
+                }
+
+                return RedirectToAction("Details", new { id = protocolo.id });
             }
 
             return View(protocolo);
@@ -84,7 +123,7 @@ namespace testando.Controllers
             {
                 db.Entry(protocolo).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details",new {id= 10});
             }
             return View(protocolo);
         }

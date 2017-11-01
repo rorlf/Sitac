@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()
     
@@ -48,8 +48,17 @@
         </div>
 
         <div class="form-group">
+ 
+            <label class="control-label col-md-2" for="ano">Arquivo</label>
+            <input type="file" id="Arquivos" name="Arquivos" multiple />  
+            <label> @ViewBag.Mensagem </label>
+             
+          
+            </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" name="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>

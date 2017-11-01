@@ -26,7 +26,9 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    
+ @foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.ano)
@@ -41,11 +43,11 @@
             @Html.DisplayFor(modelItem => item.protocolo_status_id)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id })
         </td>
     </tr>
 }
-
+    
 </table>
