@@ -18,7 +18,16 @@ namespace testando.Controllers
         // GET: protocoloes
         public ActionResult Index()
         {
-            return View();
+            var pesquisa = from c in db.protocoloes where c.id == 1807821  select c;
+            return View(pesquisa.ToList().AsEnumerable());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(string pesquisa)
+        {
+            int x = Int32.Parse(pesquisa);
+            var pesquisar = from c in db.protocoloes where c.id == x select c;
+            return View( pesquisar.ToList().AsEnumerable());
         }
 
         // GET: protocoloes/Details/5

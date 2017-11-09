@@ -9,6 +9,18 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+ 
+@using (Html.BeginForm("Index", "protocoloes", FormMethod.Post))
+{
+
+    @Html.AntiForgeryToken()
+    <label class="control-label col-md-2" for="ano">Numero do Protocolo</label>
+   
+    <input type="text" id="pesquisa" name="pesquisa" />
+    <input type="submit" value="Submit">
+}
+
+
 <table class="table">
     <tr>
         <th>
@@ -26,28 +38,30 @@
         <th></th>
     </tr>
 
-    
- @foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ano)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.data_cadastro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.data_prazo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.protocolo_status_id)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })
-        </td>
-    </tr>
-}
-    
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ano)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.data_cadastro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.data_prazo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.protocolo_status_id)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+
+    }
+
 </table>
