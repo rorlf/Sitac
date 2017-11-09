@@ -15,5 +15,7 @@ namespace testando.Models
         public DateTime? data_cadastro { get; set; }
         public DateTime? data_prazo { get; set; }
         public int? protocolo_status_id { get; set; }
+
+       
     }
 }

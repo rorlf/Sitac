@@ -1,4 +1,5 @@
-﻿@model IEnumerable<testando.Models.protocolo>
+﻿@using System.Linq
+@model IEnumerable<testando.Models.protocolo>
 
 @{
     ViewBag.Title = "Index";
@@ -21,6 +22,8 @@
 }
 
 
+
+
 <table class="table">
     <tr>
         <th>
@@ -38,9 +41,9 @@
         <th></th>
     </tr>
 
-
-
-    @foreach (var item in Model)
+    @if (!Model.Any()) { }
+    else { 
+    foreach (var item in Model)
     {
         <tr>
             <td>
@@ -62,6 +65,7 @@
             </td>
         </tr>
 
+    }
     }
 
 </table>

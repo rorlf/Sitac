@@ -19,7 +19,7 @@ namespace testando.Controllers
         public ActionResult Index()
         {
             var pesquisa = from c in db.protocoloes where c.id == 1807821  select c;
-            return View(pesquisa.ToList().AsEnumerable());
+            return View(Enumerable.Empty<testando.Models.protocolo>());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
