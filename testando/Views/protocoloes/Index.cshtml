@@ -2,10 +2,13 @@
 @model IEnumerable<testando.Models.protocolo>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Protocolo";
 }
 
-<h2>Index</h2>
+
+
+
+<h2>Protocolo</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -17,55 +20,140 @@
     @Html.AntiForgeryToken()
     <label class="control-label col-md-2" for="ano">Numero do Protocolo</label>
    
-    <input type="text" id="pesquisa" name="pesquisa" />
+    <input type="text" id="pesquisa"  name="pesquisa" required="required"/>
     <input type="submit" value="Submit">
 }
 
 
 
 
-<table class="table">
+<table class="table" style="border-collapse: separate;
+  border-spacing: 0 20px;
+  
+  font-size: large">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ano)
+            Ano
         </th>
+        @if (!Model.Any())
+        {
+            @ViewBag.Mensagem ;
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+            
+                <td>
+                    @Html.DisplayFor(modelItem => item.ano)
+                </td>
+                
+            
+
+            }
+        }
+        </tr>
+    
+    <tr>
         <th>
-            @Html.DisplayNameFor(model => model.data_cadastro)
+            Data de Cadastro
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.data_prazo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.protocolo_status_id)
-        </th>
-        <th></th>
+        @if (!Model.Any())
+        {
+            
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.data_cadastro)
+                </td>
+
+
+
+            }
+        }
     </tr>
 
-    @if (!Model.Any()) { }
-    else { 
-    foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ano)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.data_cadastro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.data_prazo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.protocolo_status_id)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id })
-            </td>
-        </tr>
+    <tr>
+        <th>
+            Data Prazo
+        </th>
+        @if (!Model.Any())
+        {
+            
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
 
-    }
-    }
+                <td>
+                    @Html.DisplayFor(modelItem => item.data_prazo)
+                </td>
+
+
+
+            }
+        }
+    </tr>
+
+    <tr>
+        <th>
+            Status ID
+        </th>
+        @if (!Model.Any())
+        {
+            
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.protocolo_status_id)
+                </td>
+
+
+
+            }
+        }
+    </tr>
+      
+
+    <tr>
+        @if (!Model.Any())
+        {
+            
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id })
+
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.id })
+                  
+                </td>
+                <td>
+
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                </td>
+
+
+
+            }
+        }
+       
+    </tr>
+
+   
 
 </table>

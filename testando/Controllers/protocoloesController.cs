@@ -18,7 +18,7 @@ namespace testando.Controllers
         // GET: protocoloes
         public ActionResult Index()
         {
-            var pesquisa = from c in db.protocoloes where c.id == 1807821  select c;
+            
             return View(Enumerable.Empty<testando.Models.protocolo>());
         }
         [HttpPost]
@@ -27,7 +27,15 @@ namespace testando.Controllers
         {
             int x = Int32.Parse(pesquisa);
             var pesquisar = from c in db.protocoloes where c.id == x select c;
-            return View( pesquisar.ToList().AsEnumerable());
+            if (pesquisar.Any())
+            {
+                return View(pesquisar.ToList().AsEnumerable());
+            }
+            else {
+                ViewBag.Mensagem = "Numero de protocolo não encontrado.";
+                return View(Enumerable.Empty<testando.Models.protocolo>());
+                
+            }
         }
 
         // GET: protocoloes/Details/5
